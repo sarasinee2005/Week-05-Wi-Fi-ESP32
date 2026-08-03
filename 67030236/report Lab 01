@@ -1,10 +1,29 @@
 ## 6. ตารางบันทึกผลการทดลอง (Experiment Results)
 
 ให้นักศึกษาบันทึกผลลัพธ์จากการสังเกตใน Serial Console ลงในตารางต่อไปนี้:
-### 6.0 ผลการรัน
 
+
+### 6.1 ตารางสรุปเปรียบเทียบการสแกนทั้ง 4 กรณี
+
+| ข้อการทดลอง | เงื่อนไขการสแกน | สถานะ (Success/Error Code) | จำนวน AP ที่พบ (เครือข่าย) | เวลาที่ใช้ในการสแกน (ms) |
+| :---: | :--- | :---: | :---: | :---: |
+| **5.1.1** | สแกนทั่วไปทุก Channel | Success (ESP_OK / 0x0) | 13 | 2499 |
+| **5.1.2** | กำหนดสแกนเฉพาะ Channel 1 | Success (ESP_OK / 0x0) | 6 | 200 |
+| **5.1.3** | กำหนดสแกน SSID ที่มีจริง | Success (ESP_OK / 0x0) | 6 | ~2400 - 2500 |
+| **5.1.4** | กำหนดสแกน SSID ที่ไม่มีจริง | Success (ESP_OK / 0x0) | 0 | ~2400 - 2500 |
+
+### 6.2 ตารางรายละเอียด AP ที่พบจากการสแกนทั่วไป (ข้อ 5.1.1)
+
+| ลำดับ | ชื่อเครือข่าย (SSID) | MAC Address (BSSID) | ความแรงสัญญาณ (RSSI: dBm) | ช่องความถี่ (Channel) | ประเภทการเข้ารหัส (Encryption Type) |
+| :---: | :--- | :--- | :---: | :---: | :--- |
+| 1 | KMITL-WIFI | 78:17:BE:C0:7D:A1 | -54 | 1 | OPEN (No Password) |
+| 2 | 😑 | 62:DD:AB:3C:2D:A6 | -60 | 11 | WPA2_PSK |
+| 3 | Redmi Note 10S | 66:34:B4:F7:03:8A | -63 | 5 | WPA2_PSK |
+| 4 | KMITL-Legacy | 78:17:BE:C0:7D:A0 | -65 | 1 | WPA2_ENTERPRISE |
+| 5 | KMITL-IoT | 78:17:BE:C0:7D:A2 | -65 | 1 | WPA2_PSK |
+
+### 6.3 ผลการรัน
 ```c
-
 I (29) boot: ESP-IDF v5.5.1 2nd stage bootloader
 I (29) boot: compile time Aug  3 2026 10:06:14
 I (29) boot: Multicore bootloader
@@ -145,33 +164,25 @@ No.  | SSID                     | MAC Address (BSSID) | RSSI   | Chan | Encrypti
 4    | KMITL-Legacy             | 78:17:BE:C0:66:20 | -84  dBm | 1    | WPA2_ENTERPRISE     
 5    | KMITL-IoT                | 78:17:BE:C0:66:22 | -84  dBm | 1    | WPA2_PSK            
 6    | RADAR1
-
-```c
-
-### 6.1 ตารางสรุปเปรียบเทียบการสแกนทั้ง 4 กรณี
-
-| ข้อการทดลอง | เงื่อนไขการสแกน | สถานะ (Success/Error Code) | จำนวน AP ที่พบ (เครือข่าย) | เวลาที่ใช้ในการสแกน (ms) |
-| :---: | :--- | :---: | :---: | :---: |
-| **5.1.1** | สแกนทั่วไปทุก Channel | Success (ESP_OK / 0x0) | 13 | 2499 |
-| **5.1.2** | กำหนดสแกนเฉพาะ Channel 1 | Success (ESP_OK / 0x0) | 6 | 200 |
-| **5.1.3** | กำหนดสแกน SSID ที่มีจริง | Success (ESP_OK / 0x0) | 6 | ~2400 - 2500 |
-| **5.1.4** | กำหนดสแกน SSID ที่ไม่มีจริง | Success (ESP_OK / 0x0) | 0 | ~2400 - 2500 |
-
-### 6.2 ตารางรายละเอียด AP ที่พบจากการสแกนทั่วไป (ข้อ 5.1.1)
-
-| ลำดับ | ชื่อเครือข่าย (SSID) | MAC Address (BSSID) | ความแรงสัญญาณ (RSSI: dBm) | ช่องความถี่ (Channel) | ประเภทการเข้ารหัส (Encryption Type) |
-| :---: | :--- | :--- | :---: | :---: | :--- |
-| 1 | KMITL-WIFI | 78:17:BE:C0:7D:A1 | -54 | 1 | OPEN (No Password) |
-| 2 | 😑 | 62:DD:AB:3C:2D:A6 | -60 | 11 | WPA2_PSK |
-| 3 | Redmi Note 10S | 66:34:B4:F7:03:8A | -63 | 5 | WPA2_PSK |
-| 4 | KMITL-Legacy | 78:17:BE:C0:7D:A0 | -65 | 1 | WPA2_ENTERPRISE |
-| 5 | KMITL-IoT | 78:17:BE:C0:7D:A2 | -65 | 1 | WPA2_PSK |
-
+```
 ---
 
 ## 7. คำถามท้ายการทดลอง (Post-Lab Questions)
 
 1. การกำหนดค่าในโครงสร้าง `wifi_scan_config_t` สำหรับสแกนเจาะจงเฉพาะช่องความถี่ (ข้อ 5.1.2) ช่วยลดเวลาในการสแกนเมื่อเทียบกับการสแกนทุกช่องความถี่ (ข้อ 5.1.1) อย่างไร และมีข้อจำกัดอย่างไร?
+answer : การลดเวลา: ช่วยลดเวลาลงได้มหาศาล (จาก 2,499 ms เหลือเพียง 200 ms หรือเร็วขึ้นราว 12.5 เท่า) เนื่องจาก RF Transceiver
+ไม่ต้องเสียเวลาเปลี่ยนความถี่ (Frequency Hopping) และไม่ต้องรอฟัง Probe Response / Beacon Frame ในทุกๆ Channel (1–13)
+ข้อจำกัด: หาก Target AP มีการเปลี่ยน Channel หรือเปิดฟังก์ชัน Auto-Channel Selection ตัว ESP32 จะค้นหา AP ไม่พบเลย เพราะไม่ได้ทำการสแกนช่องสัญญาณอื่นๆ
+
 2. เมื่อสังเกตผล Forensic Log ในข้อ 5.1.4 (สแกนหา SSID ที่ไม่มีอยู่จริง) ฟังก์ชัน `esp_wifi_scan_start()`, `esp_wifi_scan_get_ap_num()` และ `esp_wifi_scan_get_ap_records()` ส่งคืนค่าอย่างไร?
+answer : esp_wifi_scan_start() จะส่งคืน ESP_OK (0x0) (ถือว่ากระบวนการสแกนสำเร็จ ไม่ได้เกิด Error)
+esp_wifi_scan_get_ap_num() จะส่งคืน ESP_OK (0x0) และได้ค่า ap_count = 0
+esp_wifi_scan_get_ap_records() จะส่งคืน ESP_OK (0x0) แต่ records = 0 (ไม่มีข้อมูล AP เติมลงใน Buffer)
+
 3. ค่าระดับความแรงสัญญาณ (RSSI) ที่แสดงเป็นตัวเลขติดลบ (เช่น -45 dBm กับ -80 dBm) ค่าใดแสดงถึงสัญญาณที่มีความแรงและความเสถียรมากกว่ากัน?
+answer : -45 dBm แสดงถึงสัญญาณที่มีความแรงและความเสถียรมากกว่าเหตุผล: RSSI เป็นค่าอัตราส่วนกำลังสัญญาณในหน่วย logarithmic (dBm) ยิ่งค่าเข้าใกล้ $0$ มากเท่าไร สัญญาณยิ่งแรงมากเท่านั้น โดย -45 dBm
+ถือว่าเป็นสัญญาณที่แรงมาก (Very Strong) ในขณะที่ -80 dBm เป็นสัญญาณที่อ่อนมาก (Weak) และเสี่ยงต่อการเกิด Packet Loss สูง
+
 4. เหตุใดการดึงค่า `authmode` (`wifi_auth_mode_t`) จากโครงสร้าง `wifi_ap_record_t` จึงมีความสำคัญต่อการเตรียมการในเฟสถัดไป (Authentication & Association Phase)?
+answer : ความสำคัญ: ค่า authmode เป็นตัวบอกว่า AP Target นั้นใช้โหมดความปลอดภัยแบบใด (เช่น WIFI_AUTH_OPEN, WIFI_AUTH_WPA2_PSK, หรือ WIFI_AUTH_WPA2_ENTERPRISE)ประโยชน์ในการเตรียมการ: เพื่อให้ระบบสามารถจัดสรรโครงสร้างข้อมูล wifi_config_t
+ให้ถูกต้องล่วงหน้าก่อนทำการ esp_wifi_connect() เช่น:หากเป็น OPEN $\rightarrow$ ไม่ต้องใส่ Passwordหากเป็น WPA2_PSK $\rightarrow$ ต้องระบุ Passphraseหากเป็น WPA2_ENTERPRISE $\rightarrow$ ต้องเปิดใช้โมดูล esp_wpa2_enterprise และใส่ Username/Identity สำหรับ 802.1X Authenticationหากตั้งค่าไม่ตรงกับ authmode ของ AP การเชื่อมต่อจะล้มเหลวทันทีในขั้นตอน Handshake
