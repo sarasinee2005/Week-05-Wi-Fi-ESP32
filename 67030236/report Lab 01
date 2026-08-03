@@ -1,9 +1,6 @@
-## 6. ตารางบันทึกผลการทดลอง (Experiment Results)
+# รายงานผลการสแกน Wi-Fi (Lab 5.1: Wi-Fi Connection and Scanning Phase)
 
-ให้นักศึกษาบันทึกผลลัพธ์จากการสังเกตใน Serial Console ลงในตารางต่อไปนี้:
-
-
-### 6.1 ตารางสรุปเปรียบเทียบการสแกนทั้ง 4 กรณี
+## 6.1 ตารางสรุปเปรียบเทียบการสแกนทั้ง 4 กรณี
 
 | ข้อการทดลอง | เงื่อนไขการสแกน | สถานะ (Success/Error Code) | จำนวน AP ที่พบ (เครือข่าย) | เวลาที่ใช้ในการสแกน (ms) |
 | :---: | :--- | :---: | :---: | :---: |
@@ -12,20 +9,33 @@
 | **5.1.3** | กำหนดสแกน SSID ที่มีจริง | Success (ESP_OK / 0x0) | 6 | ~2400 - 2500 |
 | **5.1.4** | กำหนดสแกน SSID ที่ไม่มีจริง | Success (ESP_OK / 0x0) | 0 | ~2400 - 2500 |
 
-### 6.2 ตารางรายละเอียด AP ที่พบจากการสแกนทั่วไป (ข้อ 5.1.1)
+---
 
-| ลำดับ | ชื่อเครือข่าย (SSID) | MAC Address (BSSID) | ความแรงสัญญาณ (RSSI: dBm) | ช่องความถี่ (Channel) | ประเภทการเข้ารหัส (Encryption Type) |
+## 6.2 ตารางสรุปผลการสแกนจาก Log ทั้งหมด (ข้อ 5.1.1 - สแกนครบ 13 AP)
+
+| ลำดับ | ชื่อเครือข่าย (SSID) | MAC Address (BSSID) | ความแรงสัญญาณ (RSSI) | ช่องความถี่ | ประเภทการเข้ารหัส |
 | :---: | :--- | :--- | :---: | :---: | :--- |
-| 1 | KMITL-WIFI | 78:17:BE:C0:7D:A1 | -54 | 1 | OPEN (No Password) |
-| 2 | 😑 | 62:DD:AB:3C:2D:A6 | -60 | 11 | WPA2_PSK |
-| 3 | Redmi Note 10S | 66:34:B4:F7:03:8A | -63 | 5 | WPA2_PSK |
-| 4 | KMITL-Legacy | 78:17:BE:C0:7D:A0 | -65 | 1 | WPA2_ENTERPRISE |
-| 5 | KMITL-IoT | 78:17:BE:C0:7D:A2 | -65 | 1 | WPA2_PSK |
+| **1** | KMITL-WIFI | `78:17:BE:C0:7D:A1` | -54 dBm | 1 | OPEN (No Password) |
+| **2** | 😑 | `62:DD:AB:3C:2D:A6` | -60 dBm | 11 | WPA2_PSK |
+| **3** | Redmi Note 10S | `66:34:B4:F7:03:8A` | -63 dBm | 5 | WPA2_PSK |
+| **4** | KMITL-Legacy | `78:17:BE:C0:7D:A0` | -65 dBm | 1 | WPA2_ENTERPRISE |
+| **5** | KMITL-IoT | `78:17:BE:C0:7D:A2` | -65 dBm | 1 | WPA2_PSK |
+| **6** | `<Hidden SSID>` | `A6:AE:BD:24:7B:30` | -71 dBm | 6 | WPA2_PSK |
+| **7** | KMITL-Legacy | `78:17:BE:A9:94:E0` | -74 dBm | 6 | WPA2_ENTERPRISE |
+| **8** | KMITL-IoT | `78:17:BE:A9:94:E2` | -79 dBm | 6 | WPA2_PSK |
+| **9** | KMITL-WIFI | `78:17:BE:C0:72:61` | -80 dBm | 11 | OPEN (No Password) |
+| **10** | KMITL-WIFI | `78:17:BE:A9:94:E1` | -83 dBm | 6 | OPEN (No Password) |
+| **11** | KMITL-Legacy | `78:17:BE:C0:72:60` | -84 dBm | 11 | WPA2_ENTERPRISE |
+| **12** | KMITL-IoT | `78:17:BE:C0:72:62` | -84 dBm | 11 | WPA2_PSK |
+| **13** | RADAR1902601900480 | `DA:BC:38:B3:75:51` | -85 dBm | 1 | WPA_WPA2_PSK |
 
-### 6.3 ผลการรัน
-```c
+---
+
+## 6.3 Serial Output Log (ESP-IDF Console Log)
+
+```log
 I (29) boot: ESP-IDF v5.5.1 2nd stage bootloader
-I (29) boot: compile time Aug  3 2026 10:06:14
+I (29) boot: compile time Aug 3 2026 10:06:14
 I (29) boot: Multicore bootloader
 I (31) boot: chip revision: v3.1
 I (33) boot.esp32: SPI Speed      : 40MHz
@@ -33,7 +43,7 @@ I (37) boot.esp32: SPI Mode       : DIO
 I (41) boot.esp32: SPI Flash Size : 2MB
 I (44) boot: Enabling RNG early entropy source...
 I (49) boot: Partition Table:
-I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (51) boot: ## Label             Usage          Type ST Offset   Length
 I (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000
 I (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000
 I (71) boot:  2 factory          factory app      00 00 00010000 00100000
@@ -52,7 +62,7 @@ I (389) cpu_start: cpu freq: 160000000 Hz
 I (389) app_init: Application information:
 I (389) app_init: Project name:     LED_Blink
 I (393) app_init: App version:      1
-I (396) app_init: Compile time:     Aug  3 2026 10:08:47
+I (396) app_init: Compile time:     Aug 3 2026 10:08:47
 I (401) app_init: ELF file SHA256:  bc453067b...
 I (406) app_init: ESP-IDF:          v5.5.1
 I (409) efuse_init: Min chip rev:     v0.0
@@ -104,14 +114,14 @@ I (614) LAB_WIFI_SCAN: [FORENSIC]: esp_wifi_init() returned ESP_OK (0x0)
 I (624) LAB_WIFI_SCAN: [FORENSIC]: Call esp_wifi_set_mode(WIFI_MODE_STA)
 I (624) LAB_WIFI_SCAN: [FORENSIC]: esp_wifi_set_mode() returned ESP_OK (0x0)
 I (634) LAB_WIFI_SCAN: [FORENSIC]: Call esp_wifi_start()
-I (644) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06
+I (644) phy_init: phy_version 4861,b71b5ad,Aug 5 2025,11:16:06
 W (644) phy_init: failed to load RF calibration data (0x1102), falling back to full calibration
 I (724) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(2)
 I (734) wifi:mode : sta (14:33:5c:0d:cd:7c)
 I (734) wifi:enable tsf
 I (734) LAB_WIFI_SCAN: [FORENSIC]: esp_wifi_start() returned ESP_OK (0x0)
 I (734) LAB_WIFI_SCAN: ==================================================================
-I (744) LAB_WIFI_SCAN:   Lab 5.1: Wi-Fi Connection and Scanning Phase (ESP-IDF Forensic)
+I (744) LAB_WIFI_SCAN:    Lab 5.1: Wi-Fi Connection and Scanning Phase (ESP-IDF Forensic)
 I (754) LAB_WIFI_SCAN: ==================================================================
 I (764) LAB_WIFI_SCAN: ------------------------------------------------------------------
 I (764) LAB_WIFI_SCAN: >>> Experiment 5.1.1: General AP Scan (All Channels)
@@ -125,24 +135,6 @@ I (3304) LAB_WIFI_SCAN: [AP COUNT]: 13 network(s) found
 I (3314) LAB_WIFI_SCAN: [FORENSIC]: Call esp_wifi_scan_get_ap_records(&number, ap_info)
 I (3324) LAB_WIFI_SCAN: [FORENSIC]: esp_wifi_scan_get_ap_records() returned ESP_OK (0x0), records=13
 
---------------------------------------------------------------------------------------------------
-No.  | SSID                     | MAC Address (BSSID) | RSSI   | Chan | Encryption Type     
---------------------------------------------------------------------------------------------------
-1    | KMITL-WIFI               | 78:17:BE:C0:7D:A1 | -54  dBm | 1    | OPEN (No Password)  
-2    | 😑                     | 62:DD:AB:3C:2D:A6 | -60  dBm | 11   | WPA2_PSK            
-3    | Redmi Note 10S           | 66:34:B4:F7:03:8A | -63  dBm | 5    | WPA2_PSK            
-4    | KMITL-Legacy             | 78:17:BE:C0:7D:A0 | -65  dBm | 1    | WPA2_ENTERPRISE     
-5    | KMITL-IoT                | 78:17:BE:C0:7D:A2 | -65  dBm | 1    | WPA2_PSK            
-6    | <Hidden SSID>            | A6:AE:BD:24:7B:30 | -71  dBm | 6    | WPA2_PSK            
-7    | KMITL-Legacy             | 78:17:BE:A9:94:E0 | -74  dBm | 6    | WPA2_ENTERPRISE     
-8    | KMITL-IoT                | 78:17:BE:A9:94:E2 | -79  dBm | 6    | WPA2_PSK            
-9    | KMITL-WIFI               | 78:17:BE:C0:72:61 | -80  dBm | 11   | OPEN (No Password)  
-10   | KMITL-WIFI               | 78:17:BE:A9:94:E1 | -83  dBm | 6    | OPEN (No Password)  
-11   | KMITL-Legacy             | 78:17:BE:C0:72:60 | -84  dBm | 11   | WPA2_ENTERPRISE     
-12   | KMITL-IoT                | 78:17:BE:C0:72:62 | -84  dBm | 11   | WPA2_PSK            
-13   | RADAR1902601900480       | DA:BC:38:B3:75:51 | -85  dBm | 1    | WPA_WPA2_PSK        
---------------------------------------------------------------------------------------------------
-
 I (4474) LAB_WIFI_SCAN: ------------------------------------------------------------------
 I (4474) LAB_WIFI_SCAN: >>> Experiment 5.1.2: Channel-Specific Scan (Channel 1)
 I (4474) LAB_WIFI_SCAN: ------------------------------------------------------------------
@@ -154,18 +146,8 @@ I (4704) LAB_WIFI_SCAN: [STATUS]: Scan SUCCESS
 I (4704) LAB_WIFI_SCAN: [AP COUNT]: 6 network(s) found
 I (4714) LAB_WIFI_SCAN: [FORENSIC]: Call esp_wifi_scan_get_ap_records(&number, ap_info)
 I (4724) LAB_WIFI_SCAN: [FORENSIC]: esp_wifi_scan_get_ap_records() returned ESP_OK (0x0), records=6
+```c
 
---------------------------------------------------------------------------------------------------
-No.  | SSID                     | MAC Address (BSSID) | RSSI   | Chan | Encryption Type     
---------------------------------------------------------------------------------------------------
-1    | KMITL-WIFI               | 78:17:BE:C0:7D:A1 | -54  dBm | 1    | OPEN (No Password)  
-2    | KMITL-Legacy             | 78:17:BE:C0:7D:A0 | -67  dBm | 1    | WPA2_ENTERPRISE     
-3    | KMITL-IoT                | 78:17:BE:C0:7D:A2 | -68  dBm | 1    | WPA2_PSK            
-4    | KMITL-Legacy             | 78:17:BE:C0:66:20 | -84  dBm | 1    | WPA2_ENTERPRISE     
-5    | KMITL-IoT                | 78:17:BE:C0:66:22 | -84  dBm | 1    | WPA2_PSK            
-6    | RADAR1
-```
----
 
 ## 7. คำถามท้ายการทดลอง (Post-Lab Questions)
 
