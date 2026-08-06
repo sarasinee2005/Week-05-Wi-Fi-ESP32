@@ -144,7 +144,8 @@ I (4704) LAB_WIFI_SCAN: [STATUS]: Scan SUCCESS
 I (4704) LAB_WIFI_SCAN: [AP COUNT]: 6 network(s) found
 I (4714) LAB_WIFI_SCAN: [FORENSIC]: Call esp_wifi_scan_get_ap_records(&number, ap_info)
 I (4724) LAB_WIFI_SCAN: [FORENSIC]: esp_wifi_scan_get_ap_records() returned ESP_OK (0x0), records=6
-```c
+
+```
 
 
 ## 7. คำถามท้ายการทดลอง (Post-Lab Questions)
