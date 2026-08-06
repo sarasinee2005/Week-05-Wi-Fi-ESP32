@@ -198,7 +198,7 @@ I (6934) LAB_WIFI_CONN: [FORENSIC]: Call esp_wifi_set_config(WIFI_IF_STA, &wifi_
 I (6984) LAB_WIFI_CONN: [FORENSIC]: esp_wifi_set_config() returned ESP_OK (0x0)
 I (6984) LAB_WIFI_CONN: [FORENSIC]: Call esp_wifi_start()
 I (6994) wifi:m
-
+```
 
 ## 7. คำถามท้ายการทดลอง (Post-Lab Questions)
 
